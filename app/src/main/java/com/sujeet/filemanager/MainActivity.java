@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -32,7 +31,6 @@ public class MainActivity extends AppCompatActivity implements OnItemCLickListen
     private FloatingActionButton mAddFloatingActionButton;
     private RecyclerView mRecyclerView;
     private Toolbar mToolbar;
-    private TabLayout mTabLayout;
 
     private File mCurrentDirectory;
     private FileRecyclerAdapter mFileRecyclerAdapter;
@@ -51,7 +49,6 @@ public class MainActivity extends AppCompatActivity implements OnItemCLickListen
     //initialize UI
     private void initUI() {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        mTabLayout = (TabLayout) findViewById(R.id.tabs);
         mAddFloatingActionButton = (FloatingActionButton) findViewById(R.id.addfab);
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         setSupportActionBar(mToolbar);
@@ -209,8 +206,11 @@ public class MainActivity extends AppCompatActivity implements OnItemCLickListen
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        goBack();
+        if (!mCurrentDirectory.getName().equalsIgnoreCase("sdcard")) {
+            goBack();
+        } else
+            super.onBackPressed();
+
     }
 
     private void goBack() {
