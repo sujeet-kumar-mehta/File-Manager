@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">"File Manager "</string>
+    <string name="folder" translatable="false">Folder</string>
+    <string name="parentDirectory" translatable="false">Parent Directory</string>
+    <string name="fileSize" translatable="false">File Size</string>
+    <string name="currentDir" translatable="false">Current Dir</string>
+    <string name="new_folder_at">New Folder at %s</string>
 </resources>

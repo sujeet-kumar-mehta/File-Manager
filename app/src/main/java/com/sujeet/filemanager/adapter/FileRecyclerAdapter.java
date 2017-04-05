@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sujeet.filemanager.R;
+import com.sujeet.filemanager.interfaces.OnItemCLickListener;
 import com.sujeet.filemanager.model.FileModel;
 
 import java.util.List;
@@ -19,9 +20,7 @@ public class FileRecyclerAdapter extends RecyclerView.Adapter<FileRecyclerAdapte
 
     private List<FileModel> mFileModelList;
 
-    public List<FileModel> getmFileModelList() {
-        return mFileModelList;
-    }
+    private OnItemCLickListener mOnItemCLickListener;
 
     /**
      * Set the file list and notify the data changes
@@ -33,8 +32,9 @@ public class FileRecyclerAdapter extends RecyclerView.Adapter<FileRecyclerAdapte
         notifyDataSetChanged();
     }
 
-    public FileRecyclerAdapter(Context context) {
+    public FileRecyclerAdapter(Context context, OnItemCLickListener listener) {
         this.mContext = context;
+        this.mOnItemCLickListener=listener;
     }
 
     @Override
@@ -44,8 +44,15 @@ public class FileRecyclerAdapter extends RecyclerView.Adapter<FileRecyclerAdapte
     }
 
     @Override
-    public void onBindViewHolder(FileViewHolder holder, int position) {
-            holder.setUi(mFileModelList.get(position));
+    public void onBindViewHolder(FileViewHolder holder, final int position) {
+        final FileModel fileModel = mFileModelList.get(position);
+        holder.setUi(fileModel);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mOnItemCLickListener.onItemClick(view, fileModel);
+            }
+        });
     }
 
     @Override
@@ -56,15 +63,20 @@ public class FileRecyclerAdapter extends RecyclerView.Adapter<FileRecyclerAdapte
     public static class FileViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView mIconImageView;
-        private TextView mInfoTextView;
+        private TextView mInfoTextView,mFolderNameTextView;
+
         public FileViewHolder(View itemView) {
             super(itemView);
-            mIconImageView=(ImageView)itemView.findViewById(R.id.folder_imageview);
-            mInfoTextView=(TextView)itemView.findViewById(R.id.info_text_view);
+            mIconImageView = (ImageView) itemView.findViewById(R.id.folder_imageview);
+            mFolderNameTextView = (TextView) itemView.findViewById(R.id.folder_name_text_view);
+
+            mInfoTextView = (TextView) itemView.findViewById(R.id.info_text_view);
         }
 
-        public void setUi(FileModel fileModel){
+        public void setUi(FileModel fileModel) {
 
+            mFolderNameTextView.setText(fileModel.getName());
+            mInfoTextView.setText(fileModel.getData());
 
         }
     }

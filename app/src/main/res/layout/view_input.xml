@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <EditText
+        android:id="@+id/folder_name_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        android:hint="Enter folder name"
+        android:padding="@dimen/fab_margin"
+        android:textColor="@color/colorPrimary"
+        android:textColorHint="@android:color/secondary_text_light_nodisable">
+
+    </EditText>
+</LinearLayout>
